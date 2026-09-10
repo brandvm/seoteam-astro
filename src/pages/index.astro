@@ -175,8 +175,8 @@ const differences = copy[2].reduce<Array<{title:string;body:string;tools:Array<{
 </main>
 <footer class="site-footer"><div class="container"><div class="footer-top"><a href={base} class="brand" aria-label="SEO Team Toronto home"><img src={asset('seo-team-logo.svg')} width="131" height="58" alt="SEO Team Toronto" loading="lazy"/></a><p>60 Bloor St W, Unit 401<br/>Toronto, ON M4W 3B8</p><nav aria-label="Footer navigation"><a href={origin+'/about-us'}>About Us</a><a href="#services">Services</a><a href="#case-studies">Case Studies</a><a href="#research">Insights</a><a href="#contact">Contact</a></nav></div><div class="footer-bottom"><span>© {new Date().getFullYear()} SEO Team Toronto. All rights reserved.</span><a href="https://www.brandvm.com/">In affiliation with <strong>Brand Vision</strong> <Icon name="external" size={13}/></a></div></div></footer>
 <nav id="site-mode" class="site-mode" aria-label="Page mode" hidden>
-  <button type="button" data-site-mode="browse" aria-pressed="false" title="Browse the page (V)">Browse</button>
-  <button type="button" data-site-mode="review" aria-pressed="false" title="Click or drag to comment (C)">Review</button>
+  <button type="button" data-site-mode="browse" aria-pressed="false" title="Browse the page (V)" aria-keyshortcuts="V">Browse (V)</button>
+  <button type="button" data-site-mode="review" aria-pressed="false" title="Click or drag to comment (C)" aria-keyshortcuts="C">Comment (C)</button>
   <div id="review-tools" hidden></div>
 </nav>
 <p id="site-mode-status" class="site-mode-status" role="status" aria-live="polite" hidden></p>

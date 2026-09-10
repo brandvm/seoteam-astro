@@ -19,7 +19,7 @@ async function switchMode(mode:SiteMode,historyAction:'push'|'replace'='push'){
  for(const button of buttons)button.setAttribute('aria-pressed',String(button.dataset.siteMode===mode));
  if(mode==='browse'){review?.deactivateReview();return;}
  try{
-  if(!review){status.hidden=false;status.textContent='Opening review…';}
+  if(!review){status.hidden=false;status.textContent='Opening comments…';}
   const loaded=await import('./review');
   review=loaded;
   if(request!==revision||current!=='review')return;
@@ -27,7 +27,7 @@ async function switchMode(mode:SiteMode,historyAction:'push'|'replace'='push'){
   loaded.activateReview();
  }catch{
   if(request!==revision)return;
-  status.hidden=false;status.textContent='Review could not load. Select Review to retry.';
+  status.hidden=false;status.textContent='Comments could not load. Select Comment to retry.';
  }
 }
 for(const button of buttons)button.addEventListener('click',()=>void switchMode(button.dataset.siteMode as SiteMode));
