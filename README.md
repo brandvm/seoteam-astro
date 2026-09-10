@@ -81,14 +81,18 @@ Reference documentation: [Astro components](https://docs.astro.build/en/basics/a
 
 ## Shared comment mode
 
-Open `https://brandvm.github.io/seoteam-astro/?view=comment`. Normal visits load neither the review module nor its styles. In review mode, visitors can enter a display name, pin a thread to a page element, leave a general page comment, reply, react with thumbs up/heart/eyes, and resolve or reopen any thread. Resolved threads remain readable through the filter. “Copy link” includes the thread ID in the URL. Threads and replies paginate; the interface refreshes shared data every 15 seconds while the tab is visible.
+Open `https://brandvm.github.io/seoteam-astro/?view=comment`. Normal visits load neither the review module nor its styles. Review mode opens with the Comment tool active: click for a point pin, or drag a rectangle around an area. A floating comment box opens beside that selection. Click a saved pin to open its conversation. Visitors can enter a display name, reply, react with thumbs up/heart/eyes, and resolve or reopen any thread. The Comments button opens the thread list and offers a general page comment. Resolved threads remain readable through the filter. “Copy link” includes the thread ID in the URL. Threads and replies paginate; the interface refreshes shared data every 15 seconds while the tab is visible.
+
+Use `C` to activate Comment, `V` or Browse to use the page normally, and `Esc` to cancel a drag, dismiss a comment box, or leave the Comment tool. Mouse-wheel scrolling remains available while commenting; dragging near the viewport edge scrolls the page. On touch screens, use Browse for ordinary page scrolling and Comment for drawing an area. Rectangles can be drawn in any direction and may span sections. Pins and rectangles are stored as proportions of their nearest containing page element so they follow scrolling and resize with that element. The new migration preserves existing point comments and replies.
 
 Comments are public and anonymous; display names are self-selected, not verified identities. The comment API uses the existing Sites deployment at `https://seo-team-toronto-redesign.brandvision.chatgpt.site/api/review`, backed by D1. Its root redirects to the GitHub Pages homepage. Browser storage remembers only a display name and an anonymous reaction identifier. Comment records are never stored only in the browser. No GitHub token, database credential, or privileged API secret is shipped to visitors.
 
 - `server/review-api.mjs`: public JSON endpoints, validation, bounded payloads, rate limiting, and CORS allowlist.
 - `db/schema.ts` and `drizzle/`: schema and generated, append-only migrations.
-- `src/scripts/review.ts` and `src/styles/review.css`: query-gated review panel and element-relative pins.
-- `tests/review-api.test.mjs`: independent visitor workflows, idempotency, pagination, validation, and spam limits using the actual migration and a SQLite-backed D1 adapter.
+- `src/scripts/review.ts` and `src/styles/review.css`: query-gated toolbar, anchored comment boxes, pins, and area outlines.
+- `src/scripts/review-geometry.ts`: normalized point/rectangle coordinates and edge-scroll calculations.
+- `tests/review-api.test.mjs`: independent visitor workflows, idempotency, pagination, validation, and spam limits plus area geometry and migration compatibility using the actual migrations and a SQLite-backed D1 adapter.
+- `tests/review-geometry.test.mjs`: all drag directions, click jitter, coordinate scaling, bounds, and edge scrolling.
 
 The frontend and backend are separate deployments. GitHub Actions updates the static frontend on pushes to main. Backend changes also require publishing the exact built Worker and migrations to the existing Sites project. Deploying to GitHub Pages alone does not update the API.
 

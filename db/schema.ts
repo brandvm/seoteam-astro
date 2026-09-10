@@ -3,6 +3,7 @@ export const threads = sqliteTable('review_threads', {
   id: integer('id').primaryKey({ autoIncrement:true }), requestId:text('request_id').notNull().unique(),
   page:text('page').notNull(), anchor:text('anchor').notNull(), anchorLabel:text('anchor_label').notNull(),
   x:integer('x').notNull(), y:integer('y').notNull(), createdAt:integer('created_at').notNull(),
+  width:integer('width').notNull().default(0),height:integer('height').notNull().default(0),selectionType:text('selection_type').notNull().default('point'),
   resolved:integer('resolved').notNull().default(0), resolvedBy:text('resolved_by'), resolvedAt:integer('resolved_at'),
 },t=>[index('idx_review_threads_page_id').on(t.page,t.id)]);
 export const messages = sqliteTable('review_messages', {

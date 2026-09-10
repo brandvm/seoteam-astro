@@ -9,6 +9,45 @@ function setup(){const DB=createDatabase();return {DB,async call(path='',method=
  return {status:response.status,headers:response.headers,data:response.status===204?null:await response.json()};
  },close(){DB.close();}};}
 const draft=(extra={})=>({requestId:crypto.randomUUID(),name:'A reviewer',body:'Make this clearer.',anchor:'hero:h1:0',anchorLabel:'Hero heading',x:4500,y:2200,...extra});
+test('area comments are shared with their full geometry and support discussion',async()=>{
+ const s=setup();try{
+  const payload=draft({anchor:'page',anchorLabel:'Across sections',x:1000,y:2000,width:5000,height:3000,selectionType:'area'});
+  const created=await s.call('threads','POST',payload);assert.equal(created.status,200);
+  const id=created.data.id;assert.equal((await s.call('threads','POST',payload)).data.id,id);
+  const shared=(await s.call('threads?status=all','GET',undefined,b)).data.threads[0];
+  for(const [key,value] of Object.entries({x:1000,y:2000,width:5000,height:3000,selection_type:'area'}))assert.equal(shared[key],value);
+  assert.equal((await s.call('threads','POST',{...payload,width:4000})).status,409);
+  assert.equal((await s.call(`threads/${id}/replies`,'POST',{requestId:crypto.randomUUID(),name:'Second reviewer',body:'The whole section needs more spacing.'},b)).status,200);
+  await s.call(`messages/${shared.message_id}/reactions`,'PUT',{emoji:'👍',active:true},b);
+  await s.call(`threads/${id}`,'PATCH',{name:'Second reviewer',resolved:true},b);
+  const detail=(await s.call(`threads/${id}`)).data;
+  assert.equal(detail.thread.selection_type,'area');assert.equal(detail.thread.width,5000);
+  assert.equal(detail.thread.resolved,1);assert.equal(detail.replies.length,1);assert.equal(detail.root.reactions[0].count,1);
+  await s.call(`threads/${id}`,'PATCH',{name:'A reviewer',resolved:false});assert.equal((await s.call('threads?status=open')).data.threads[0].id,id);
+ }finally{s.close();}
+});
+test('legacy point payloads remain valid and malformed rectangles are rejected',async()=>{
+ const s=setup();try{
+  const legacy=await s.call('threads','POST',draft());assert.equal(legacy.status,200);
+  const thread=(await s.call(`threads/${legacy.data.id}`)).data.thread;
+  assert.equal(thread.width,0);assert.equal(thread.height,0);assert.equal(thread.selection_type,'point');
+  for(const bad of [{selectionType:'polygon'},{width:10},{selectionType:'area'},{selectionType:'area',width:0,height:10},{selectionType:'area',width:100,height:0},{selectionType:'area',width:-1,height:100},{selectionType:'area',width:1.5,height:100},{selectionType:'area',width:6000,height:100},{selectionType:'area',width:100,height:8000},{selectionType:'area',width:'100',height:100}]){
+   assert.equal((await s.call('threads','POST',draft(bad))).status,400,JSON.stringify(bad));
+  }
+ }finally{s.close();}
+});
+test('the area migration preserves existing point comments and replies',async()=>{
+ const {DatabaseSync}=await import('node:sqlite');const {readFileSync}=await import('node:fs');const db=new DatabaseSync(':memory:');
+ try{
+  db.exec(readFileSync(new URL('../drizzle/0000_stale_kid_colt.sql',import.meta.url),'utf8'));
+  db.prepare("INSERT INTO review_threads(request_id,page,anchor,anchor_label,x,y,created_at) VALUES (?,'homepage','hero','Hero',4500,2200,123)").run(a);
+  db.prepare('INSERT INTO review_messages(request_id,thread_id,visitor_id,name,body,created_at) VALUES (?,1,?,?,?,123)').run(a,a,'Reviewer','Existing comment');
+  db.prepare('INSERT INTO review_messages(request_id,thread_id,visitor_id,name,body,created_at) VALUES (?,1,?,?,?,124)').run(b,b,'Other reviewer','Existing reply');
+  db.exec(readFileSync(new URL('../drizzle/0001_fluffy_butterfly.sql',import.meta.url),'utf8'));
+  const thread=db.prepare('SELECT * FROM review_threads').get();assert.equal(thread.id,1);assert.equal(thread.x,4500);assert.equal(thread.width,0);assert.equal(thread.height,0);assert.equal(thread.selection_type,'point');
+  assert.deepEqual(db.prepare('SELECT body FROM review_messages ORDER BY id').all().map(row=>row.body),['Existing comment','Existing reply']);
+ }finally{db.close();}
+});
 test('two independent visitors share threads, replies, reactions and resolve/reopen state',async()=>{
  const s=setup();try{
   const payload=draft();const first=await s.call('threads','POST',payload);assert.equal(first.status,200);

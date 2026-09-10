@@ -73,12 +73,14 @@ async function route(request,env,url){
     const anchor=clean(data.anchor,1,100,'Location'),anchorLabel=clean(data.anchorLabel,1,120,'Location label');
     if(!SECTIONS.has(anchor.split(':')[0])||!/^[-a-z0-9:]+$/.test(anchor))fail(400,'Invalid comment location.');
     if(!Number.isInteger(data.x)||!Number.isInteger(data.y)||data.x<0||data.x>10000||data.y<0||data.y>10000)fail(400,'Invalid pin position.');
-    const previous=await db.prepare('SELECT t.id,m.visitor_id,m.body,m.name FROM review_threads t JOIN review_messages m ON m.request_id=t.request_id WHERE t.request_id=?').bind(requestId).first();
-    if(previous){if(previous.visitor_id!==visitorId||previous.body!==message||previous.name!==name)fail(409,'This request was already used.');return {id:previous.id};}
+    const selectionType=data.selectionType??'point',width=data.width??0,height=data.height??0;
+    if(!['point','area'].includes(selectionType)||!Number.isInteger(width)||!Number.isInteger(height)||width<0||height<0||data.x+width>10000||data.y+height>10000||(selectionType==='area'&&(width===0||height===0))||(selectionType==='point'&&(width!==0||height!==0)))fail(400,'Invalid selected area.');
+    const previous=await db.prepare('SELECT t.*,m.visitor_id,m.body,m.name FROM review_threads t JOIN review_messages m ON m.request_id=t.request_id WHERE t.request_id=?').bind(requestId).first();
+    if(previous){if(previous.visitor_id!==visitorId||previous.body!==message||previous.name!==name||previous.anchor!==anchor||previous.x!==data.x||previous.y!==data.y||previous.width!==width||previous.height!==height||previous.selection_type!==selectionType)fail(409,'This request was already used.');return {id:previous.id};}
     await limit(db,request,'new-threads',12,600);
     const now=Date.now();
     await db.batch([
-      db.prepare("INSERT INTO review_threads (request_id,page,anchor,anchor_label,x,y,created_at) VALUES (?,'homepage',?,?,?,?,?) ON CONFLICT(request_id) DO NOTHING").bind(requestId,anchor,anchorLabel,data.x,data.y,now),
+      db.prepare("INSERT INTO review_threads (request_id,page,anchor,anchor_label,x,y,width,height,selection_type,created_at) VALUES (?,'homepage',?,?,?,?,?,?,?,?) ON CONFLICT(request_id) DO NOTHING").bind(requestId,anchor,anchorLabel,data.x,data.y,width,height,selectionType,now),
       db.prepare('INSERT INTO review_messages (request_id,thread_id,visitor_id,name,body,created_at) SELECT ?,id,?,?,?,? FROM review_threads WHERE request_id=? ON CONFLICT(request_id) DO NOTHING').bind(requestId,visitorId,name,message,now,requestId),
     ]);
     const row=await db.prepare('SELECT id FROM review_threads WHERE request_id=?').bind(requestId).first();return {id:row.id};
