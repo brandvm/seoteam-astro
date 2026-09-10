@@ -5,10 +5,20 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev --host 127.0.0.1",
-    "build": "astro build",
-    "preview": "astro preview --host 127.0.0.1"
+    "build": "astro build && node scripts/build-review-worker.mjs",
+    "preview": "astro preview --host 127.0.0.1",
+    "db:generate": "drizzle-kit generate",
+    "test": "node --test tests/*.test.mjs",
+    "dev:comments": "node scripts/dev-review-api.mjs",
+    "check:comments": "tsc --ignoreConfig --noEmit --target ES2022 --lib ES2022,DOM,DOM.Iterable --module ESNext --moduleResolution bundler --types astro/client --skipLibCheck src/scripts/review.ts"
   },
   "dependencies": {
     "astro": "7.3.2"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.10",
+    "drizzle-orm": "^0.45.2",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2"
   }
 }

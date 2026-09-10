@@ -16,7 +16,7 @@ npm run build
 npm run preview
 ```
 
-Deploy the generated `dist/` directory to any static host. The private Sites review deployment is configured in `.openai/hosting.json`.
+Deploy `out/` to a static host. The build also produces a separate comment API Worker in `dist/server/`, with Sites and D1 configuration in `.openai/hosting.json`. GitHub Pages publishes only `out/`.
 
 ## GitHub Pages
 
@@ -77,3 +77,21 @@ The review page intentionally includes `noindex,nofollow`. When the redesign is 
 Validation performed: root and GitHub Pages production builds, all 37 supplied body/intro/heading text blocks, unique IDs and valid section anchors, local asset and responsive-source existence, explicit image dimensions and alt attributes, client JavaScript syntax, and arithmetic checks on the bar comparisons. All 18 external destination URLs returned HTTP 200 during the initial implementation. Browser interaction, visual QA, and Lighthouse measurement have not been run; the responsive rules are implemented but no measured performance score is claimed.
 
 Reference documentation: [Astro components](https://docs.astro.build/en/basics/astro-components/) and [client scripts](https://docs.astro.build/en/guides/client-side-scripts/).
+
+
+## Shared comment mode
+
+Open `https://brandvm.github.io/seoteam-astro/?view=comment`. Normal visits load neither the review module nor its styles. In review mode, visitors can enter a display name, pin a thread to a page element, leave a general page comment, reply, react with thumbs up/heart/eyes, and resolve or reopen any thread. Resolved threads remain readable through the filter. “Copy link” includes the thread ID in the URL. Threads and replies paginate; the interface refreshes shared data every 15 seconds while the tab is visible.
+
+Comments are public and anonymous; display names are self-selected, not verified identities. The comment API uses the existing Sites deployment at `https://seo-team-toronto-redesign.brandvision.chatgpt.site/api/review`, backed by D1. Its root redirects to the GitHub Pages homepage. Browser storage remembers only a display name and an anonymous reaction identifier. Comment records are never stored only in the browser. No GitHub token, database credential, or privileged API secret is shipped to visitors.
+
+- `server/review-api.mjs`: public JSON endpoints, validation, bounded payloads, rate limiting, and CORS allowlist.
+- `db/schema.ts` and `drizzle/`: schema and generated, append-only migrations.
+- `src/scripts/review.ts` and `src/styles/review.css`: query-gated review panel and element-relative pins.
+- `tests/review-api.test.mjs`: independent visitor workflows, idempotency, pagination, validation, and spam limits using the actual migration and a SQLite-backed D1 adapter.
+
+The frontend and backend are separate deployments. GitHub Actions updates the static frontend on pushes to main. Backend changes also require publishing the exact built Worker and migrations to the existing Sites project. Deploying to GitHub Pages alone does not update the API.
+
+For a local comment preview, run `npm run dev:comments`, then run `PUBLIC_REVIEW_API=http://127.0.0.1:8787/api/review npm run dev` in a second terminal. Visit `http://127.0.0.1:4321/?view=comment`. The local server uses an ignored SQLite file; set `REVIEW_LOCAL_DB` to choose another local file. Production builds use the public API default; `PUBLIC_REVIEW_API` is an optional public endpoint override, never a secret.
+
+Run `npm test` and `npm run check:comments` before deployment. Publishing applies the D1 migration before the Worker is uploaded. Do not edit an applied migration. Keep the stable section IDs when redesigning the page so existing pins can fall back to their section if an individual element changes.
