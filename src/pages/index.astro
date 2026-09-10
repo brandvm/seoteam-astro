@@ -3,8 +3,12 @@ import '../styles/global.css';
 import Icon from '../components/Icon.astro';
 import copy from '../data/copy.json';
 import {cases, testimonials, articles, industries} from '../data/results';
+import epilogueFont from '../assets/fonts/epilogue.woff2?url';
+import rubikFont from '../assets/fonts/rubik.woff2?url';
 const text = (section: number, type: string) => copy[section].find(row => row.type === type)?.text || '';
 const origin = 'https://www.seoteamtoronto.ca';
+const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
+const asset = (name: string) => `${base}assets/${name}`;
 const services = copy[1].reduce<Array<{title:string;body:string;link:string}>>((all,row) => {
   if(row.type === 'H3') all.push({title:row.text,body:'',link:''});
   else if(all.length && row.type === 'Body') all[all.length-1].body = row.text;
@@ -31,15 +35,15 @@ const differences = copy[2].reduce<Array<{title:string;body:string;tools:Array<{
   <meta name="description" content="A Toronto SEO agency connecting organic growth, AI search visibility, and marketing strategy. Research-led consulting built around your business goals."/>
   <meta name="robots" content="noindex,nofollow"/>
   <meta name="theme-color" content="#200f09"/>
-  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"/>
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/epilogue.woff2"/>
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/rubik.woff2"/>
+  <link rel="icon" type="image/svg+xml" href={asset('favicon.svg')}/>
+  <link rel="preload" as="font" type="font/woff2" crossorigin href={epilogueFont}/>
+  <link rel="preload" as="font" type="font/woff2" crossorigin href={rubikFont}/>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="container nav-shell">
-    <a href="/" class="brand" aria-label="SEO Team Toronto home"><img src="/assets/seo-team-logo.svg" width="131" height="58" alt="SEO Team Toronto"/></a>
+    <a href={base} class="brand" aria-label="SEO Team Toronto home"><img src={asset('seo-team-logo.svg')} width="131" height="58" alt="SEO Team Toronto"/></a>
     <span class="brand-location">Toronto, Ontario<br/><span>SEO & AI search consultants</span></span>
     <nav class="desktop-nav" aria-label="Main navigation">
       <a href="#services">Services</a><a href="#why-seo-team">Why SEO Team</a><a href="#case-studies">Our Work</a><a href="#research">Insights</a>
@@ -161,7 +165,7 @@ const differences = copy[2].reduce<Array<{title:string;body:string;tools:Array<{
     <div class="container contact-layout"><div><div class="eyebrow"><span class="eyebrow-line"></span>{text(8,'Eyebrow')}</div><h2 id="contact-title">{text(8,'H2')}</h2><p>{text(8,'Body')}</p></div><div class="contact-actions"><a class="button" href={origin+'/contact'}>Speak With a Consultant <Icon size={20}/></a><a href="mailto:info@seoteamtoronto.ca" class="contact-link"><Icon name="mail" size={18}/>info@seoteamtoronto.ca</a><a href="tel:+14163603434" class="contact-link"><Icon name="phone" size={18}/>+1 416 360-3434</a></div></div>
   </section>
 </main>
-<footer class="site-footer"><div class="container"><div class="footer-top"><a href="/" class="brand" aria-label="SEO Team Toronto home"><img src="/assets/seo-team-logo.svg" width="131" height="58" alt="SEO Team Toronto" loading="lazy"/></a><p>60 Bloor St W, Unit 401<br/>Toronto, ON M4W 3B8</p><nav aria-label="Footer navigation"><a href={origin+'/about-us'}>About Us</a><a href="#services">Services</a><a href="#case-studies">Case Studies</a><a href="#research">Insights</a><a href="#contact">Contact</a></nav></div><div class="footer-bottom"><span>© {new Date().getFullYear()} SEO Team Toronto. All rights reserved.</span><a href="https://www.brandvm.com/">In affiliation with <strong>Brand Vision</strong> <Icon name="external" size={13}/></a></div></div></footer>
+<footer class="site-footer"><div class="container"><div class="footer-top"><a href={base} class="brand" aria-label="SEO Team Toronto home"><img src={asset('seo-team-logo.svg')} width="131" height="58" alt="SEO Team Toronto" loading="lazy"/></a><p>60 Bloor St W, Unit 401<br/>Toronto, ON M4W 3B8</p><nav aria-label="Footer navigation"><a href={origin+'/about-us'}>About Us</a><a href="#services">Services</a><a href="#case-studies">Case Studies</a><a href="#research">Insights</a><a href="#contact">Contact</a></nav></div><div class="footer-bottom"><span>© {new Date().getFullYear()} SEO Team Toronto. All rights reserved.</span><a href="https://www.brandvm.com/">In affiliation with <strong>Brand Vision</strong> <Icon name="external" size={13}/></a></div></div></footer>
 <script>
   const menu=document.querySelector<HTMLDetailsElement>('.mobile-menu');
   menu?.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{menu.open=false;}));

@@ -1,2 +1,9 @@
 import { defineConfig } from 'astro/config';
-export default defineConfig({ output: 'static', devToolbar: { enabled: false } });
+
+// Pages supplies these at build time; local and root-domain builds retain '/'.
+export default defineConfig({
+  output: 'static',
+  site: process.env.SITE_URL,
+  base: process.env.BASE_PATH || '/',
+  devToolbar: { enabled: false },
+});

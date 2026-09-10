@@ -18,6 +18,19 @@ npm run preview
 
 Deploy the generated `dist/` directory to any static host. The private Sites review deployment is configured in `.openai/hosting.json`.
 
+## GitHub Pages
+
+`.github/workflows/deploy.yml` builds and publishes this site on every push to `main`, or through a manual Actions run. In repository **Settings → Pages**, the source must be **GitHub Actions**.
+
+The workflow reads the Pages origin and base path from GitHub, then passes them to Astro as `SITE_URL` and `BASE_PATH`. For this repository, the default URL is `https://brandvm.github.io/seoteam-astro/`. Logo, favicon, home links, CSS, and fonts all resolve under that path. Root-domain and local builds keep `/` as their default.
+
+To reproduce the Pages build locally:
+
+```sh
+SITE_URL=https://brandvm.github.io BASE_PATH=/seoteam-astro/ npm run build
+BASE_PATH=/seoteam-astro/ npm run preview
+```
+
 ## Editing
 
 - `src/pages/index.astro`: page structure, navigation, chart, and small interaction script.
@@ -25,7 +38,8 @@ Deploy the generated `dist/` directory to any static host. The private Sites rev
 - `src/data/copy.json`: supplied headings and copy, rendered without rewriting the body paragraphs.
 - `src/data/results.ts`: case-study metrics, testimonial text, industries, and article destinations.
 - `src/components/Icon.astro`: small inline line icons.
-- `public/assets/`: original logo and favicon, locally hosted WOFF2 fonts, and font licenses.
+- `public/assets/`: original logo and favicon, plus font licenses.
+- `src/assets/fonts/`: locally hosted WOFF2 fonts, bundled by Astro with base-aware URLs.
 - `src/homepage-copy.txt`: plain-text extraction of the supplied final copy for comparison.
 
 No React runtime, carousel library, animation library, remote image requests, or remote font requests. The current logo SVG was extracted from the original page and its CSS colour variables resolved to their original values. The existing fonts were downloaded and subset to Latin characters in WOFF2 format.
