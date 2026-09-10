@@ -16,3 +16,12 @@ export function normalizeSelection(start:Point,end:Point,bounds:Bounds):Selectio
 }
 export function projectSelection(selection:{x:number;y:number;width?:number;height?:number},bounds:Bounds):Bounds{return {x:bounds.x+bounds.width*selection.x/10000,y:bounds.y+bounds.height*selection.y/10000,width:bounds.width*(selection.width||0)/10000,height:bounds.height*(selection.height||0)/10000};}
 export function edgeScrollSpeed(y:number,viewportHeight:number){const edge=40;return y<edge?-Math.ceil(clamp((edge-y)/edge,0,1)*16):y>viewportHeight-edge?Math.ceil(clamp((y-viewportHeight+edge)/edge,0,1)*16):0;}
+export function attachedCard(pin:Point,card:{width:number;height:number},viewport:{width:number;height:number}){
+ if(pin.x<0||pin.x>viewport.width||pin.y<0||pin.y>viewport.height)return null;
+ let side='right',x=pin.x+24,y=pin.y-24;
+ if(x+card.width>viewport.width-12){side='left';x=pin.x-card.width-24;}
+ if(x<10){side='below';x=clamp(pin.x-card.width/2,10,viewport.width-card.width-10);y=pin.y+24;if(y+card.height>viewport.height-12){side='above';y=pin.y-card.height-24;}}
+ else if(y+card.height>viewport.height-12)y=pin.y-card.height+24;
+ y=Math.max(10,y);
+ return {x,y,side,pinOffset:clamp(pin.y-y,12,card.height-12),pinX:clamp(pin.x-x,15,card.width-15)};
+}

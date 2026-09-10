@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import '../styles/site-mode.css';
 import Icon from '../components/Icon.astro';
 import copy from '../data/copy.json';
 import {cases, testimonials, articles, industries} from '../data/results';
@@ -173,15 +174,14 @@ const differences = copy[2].reduce<Array<{title:string;body:string;tools:Array<{
   </section>
 </main>
 <footer class="site-footer"><div class="container"><div class="footer-top"><a href={base} class="brand" aria-label="SEO Team Toronto home"><img src={asset('seo-team-logo.svg')} width="131" height="58" alt="SEO Team Toronto" loading="lazy"/></a><p>60 Bloor St W, Unit 401<br/>Toronto, ON M4W 3B8</p><nav aria-label="Footer navigation"><a href={origin+'/about-us'}>About Us</a><a href="#services">Services</a><a href="#case-studies">Case Studies</a><a href="#research">Insights</a><a href="#contact">Contact</a></nav></div><div class="footer-bottom"><span>© {new Date().getFullYear()} SEO Team Toronto. All rights reserved.</span><a href="https://www.brandvm.com/">In affiliation with <strong>Brand Vision</strong> <Icon name="external" size={13}/></a></div></div></footer>
+<nav id="site-mode" class="site-mode" aria-label="Page mode" hidden>
+  <button type="button" data-site-mode="browse" aria-pressed="false" title="Browse the page (V)">Browse</button>
+  <button type="button" data-site-mode="review" aria-pressed="false" title="Click or drag to comment (C)">Review</button>
+  <div id="review-tools" hidden></div>
+</nav>
+<p id="site-mode-status" class="site-mode-status" role="status" aria-live="polite" hidden></p>
 <script>
-  if (new URLSearchParams(window.location.search).get('view') === 'comment') {
-    import('../scripts/review').catch(() => {
-      const notice=document.createElement('p');
-      notice.textContent='Comment mode could not load. Please refresh the page to try again.';
-      notice.setAttribute('role','alert');
-      document.body.prepend(notice);
-    });
-  }
+  import '../scripts/site-mode';
   const menu=document.querySelector<HTMLDetailsElement>('.mobile-menu');
   menu?.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{menu.open=false;}));
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menu?.open){menu.open=false;menu.querySelector('summary')?.focus();}});

@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {dragBounds,isAreaDrag,contains,normalizeSelection,projectSelection,edgeScrollSpeed} from '../src/scripts/review-geometry.ts';
+import {dragBounds,isAreaDrag,contains,normalizeSelection,projectSelection,edgeScrollSpeed,attachedCard} from '../src/scripts/review-geometry.ts';
 
 const anchor={x:100,y:200,width:400,height:200};
 test('clicks and pointer jitter stay point comments at the initial position',()=>{
@@ -35,4 +35,21 @@ test('edge scrolling is bounded and stops away from the viewport edges',()=>{
  assert.equal(edgeScrollSpeed(20,800),-8);assert.equal(edgeScrollSpeed(400,800),0);
  assert.equal(edgeScrollSpeed(780,800),8);assert.equal(edgeScrollSpeed(800,800),16);
  assert.equal(edgeScrollSpeed(900,800),16);
+});
+test('conversation cards move with their pin and disappear when it scrolls out of view',()=>{
+ const card={width:390,height:270},viewport={width:1440,height:900};
+ const before=attachedCard({x:300,y:400},card,viewport);
+ const after=attachedCard({x:300,y:300},card,viewport);
+ assert.equal(before.side,'right');assert.equal(before.x,324);assert.equal(after.y,before.y-100);
+ assert.equal(after.pinOffset,before.pinOffset);
+ assert.equal(attachedCard({x:300,y:-1},card,viewport),null);
+ assert.equal(attachedCard({x:300,y:901},card,viewport),null);
+});
+test('cards attach on the available side near desktop and mobile edges',()=>{
+ const card={width:390,height:270};
+ assert.equal(attachedCard({x:1300,y:400},card,{width:1440,height:900}).side,'left');
+ const below=attachedCard({x:180,y:100},{width:350,height:260},{width:375,height:800});
+ assert.equal(below.side,'below');assert.equal(below.x,10);assert.equal(below.y,124);
+ const above=attachedCard({x:180,y:700},{width:350,height:260},{width:375,height:800});
+ assert.equal(above.side,'above');assert.equal(above.y,416);
 });
