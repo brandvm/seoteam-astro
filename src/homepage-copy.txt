@@ -1,0 +1,84 @@
+SECTION 1 — HERO
+H1: The Pioneer Toronto SEO Agency
+Body: A strong search strategy should keep delivering value as the way customers discover your business changes. Our Toronto SEO agency brings years of consulting experience to that challenge, backed by original research into organic and AI search. We turn that knowledge into a clear plan for strengthening your position in Google and expanding your visibility in AI-driven discovery. Your business objectives guide the work, with experienced judgement behind every recommendation.
+Primary CTA: Speak With a Consultant
+
+SECTION 2 — SERVICES
+Eyebrow: What We Do
+H2: Growth & SEO Services
+Intro: SEO is our focus, but the strategy has to serve your business as a whole. Our consultants consider how search fits into the rest of your marketing, and what happens once someone reaches your website. Our four areas of expertise help you strengthen organic performance while addressing the opportunities around it. Every recommendation supports your business goals rather than an isolated channel target.
+Card 1
+H3: Organic Search Growth
+Body: We build organic growth around the searches that matter to your business. Our SEO consultants investigate where your website is losing opportunities and what competing sites are doing well. That research establishes which technical improvements deserve priority and where content can make the greatest difference. The work follows a clear plan designed to make organic search a lasting source of prospective customers.
+Link: Explore Organic Growth →
+Card 2
+H3: AI Search Visibility (GEO & AEO)
+Body: Your GEO and AEO strategy begins with how AI search represents your business today. We examine the answers to relevant customer questions and investigate the sources behind them. Those findings guide improvements to your website and to how your expertise is represented elsewhere online. Ongoing analysis helps us refine the approach as your visibility develops. The work builds on SEO while addressing the additional ways customers can discover your brand.
+Link: Explore GEO & AEO →
+Card 3
+H3: Paid Media Strategy & Management
+Body: Our consultants manage paid media with a clear view of what a customer is worth to your business. We use search behaviour to inform targeting and evaluate campaigns against the quality of the conversions they generate. Testing guides where to increase investment and where to change course. Insights from paid performance also inform your organic strategy, so both channels benefit from what we learn.
+Link: Explore Paid Media →
+Card 4
+H3: Marketing Strategy & Advisory
+Body: Give your marketing a clear direction before committing more budget. Our consultants assess whether your current approach can deliver the growth you need. That work extends beyond SEO to decisions about the role of social media and how investment should be allocated across channels. You receive a practical plan that explains what deserves priority and how it supports the next stage of your business.
+Link: Explore Marketing Strategy →
+
+SECTION 3 — DIFFERENTIATORS
+Eyebrow: Why SEO Team
+H2: Why Brands Choose SEO Team
+Intro: Your SEO agency should be able to explain why a recommendation is right for your business. We bring that depth of thinking to a close consulting relationship, supported by research and technology of our own.
+Block 1
+H3: Thought Leaders in SEO & GEO
+Body: Years of hands-on SEO experience inform our published research and studies. We examine major campaigns to understand what drove their performance and how those lessons apply as search evolves. That work contributes to the industry's understanding of SEO and GEO. Your strategy benefits from consultants who investigate the evidence and can explain what it means for your market.
+Block 2
+H3: Brand & UX Expertise
+Body: Our sister agency Brand Vision brings expertise in brand development and user experience to our approach. That perspective is part of the SEO work from the beginning. We consider how recommendations affect your positioning and the way customers use your website. The goal is stronger organic performance without compromising the qualities that make your business worth choosing.
+Block 3
+H3: Proprietary AI Technology
+Body: We've developed our own AI-powered systems to support the decisions behind your strategy. They combine daily account analysis with independently gathered industry intelligence. Our consultants interpret the findings and determine when a change warrants action.
+H4: Vantage
+Body: Vantage reviews SEO and paid media campaign data every day. It flags changes that need attention and generates recommendations for our consultants to assess. Urgent findings can be investigated between reporting cycles rather than waiting for the next monthly review.
+H4: Horizon
+Body: Horizon uses independent crawling to gather information about developments in Google and AI search. It draws on sources such as Reddit and X to surface emerging signals for investigation. Our consultants assess what those findings could mean for your strategy, without relying solely on third-party summaries.
+Block 4
+H3: Customized Strategy & Personal Service
+Body: Your engagement starts with an assessment of the business rather than a choice of packages. We study the opportunity in your industry and the locations you need to reach. What makes your company different informs the strategy, while your budget and timeline shape the scope. Our boutique approach keeps the relationship personal, with a plan that can adapt as your goals change.
+
+SECTION 4 — APPROACH
+Eyebrow: Our Approach
+H2: A Unified Strategy for SEO & AI Search
+Body: We believe the future of organic growth lies in building brand authority that extends beyond any single search platform. Our Toronto SEO agency connects SEO with GEO and AEO around that principle. Each discipline requires its own approach, but the work should reinforce the same foundation of credible expertise. We strengthen that foundation through your website and the wider sources that shape how your business is understood. Our research guides how we adapt the strategy as search evolves. The goal is to turn your authority into opportunities to win business wherever customers look for answers.
+
+SECTION 5 — CASE STUDIES
+Eyebrow: Case Studies
+H2: SEO Strategy in Practice
+Body: See how our consultants turn research into strategies built around specific business challenges. Our case studies explain the decisions behind the work and the results achieved for our clients.
+Link: View All Case Studies →
+Module: case study cards
+
+SECTION 6 — INDUSTRIES
+Eyebrow: Industries
+H2: SEO Expertise for Your Industry
+Body: Your industry shapes how customers search and what earns their trust. We develop your SEO strategy around those expectations and what it takes to compete in your market.
+Link: Explore Industries →
+Module: industry grid
+
+SECTION 7 — RESEARCH
+Eyebrow: Research & Insights
+H2: SEO & AI Search Research
+Body: Explore original research and campaign studies from our consultants. We examine the evidence behind changes in search and explain what the findings mean for your strategy.
+Link: Read Our Research →
+Module: article cards
+
+SECTION 8 — TESTIMONIALS
+Eyebrow: Testimonials
+H2: What Our Clients Say
+Body: Hear directly from our clients about working with SEO Team. Their feedback offers a first-hand perspective on our approach and the relationships behind the work.
+Module: testimonial slider
+
+SECTION 9 — CLOSING CTA
+Eyebrow: Get Started
+H2: Speak With Our SEO Consultants
+Body: Tell us about your business and where you want to grow. Our Toronto SEO agency can help you understand the opportunity and discuss an approach that fits your goals.
+  

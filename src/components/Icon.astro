@@ -1,0 +1,25 @@
+---
+interface Props { name?: string; size?: number; }
+const {name = 'arrow', size = 24} = Astro.props;
+const paths: Record<string,string> = {
+ arrow: 'M5 12h14m-6-6 6 6-6 6',
+ chart: 'M4 20h16M7 16v-4m5 4V8m5 8V4M4 7l5-4 5 2 6-3',
+ search: 'M21 21l-5-5M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0',
+ target: 'M12 3a9 9 0 1 0 9 9M12 7a5 5 0 1 0 5 5M12 12l9-9m-5 0h5v5',
+ layers: 'm12 3 10 5-10 5L2 8l10-5M2 12l10 5 10-5M2 16l10 5 10-5',
+ globe: 'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18',
+ plus: 'M12 5v14M5 12h14',
+ bolt: 'M13 2 4 14h7l-1 8 10-13h-7l1-7',
+ building: 'M4 21V7l8-4v18M12 9h8v12M2 21h20M7 8v1m0 3v1m0 3v1m9-4h1m-1 4h1',
+ check: 'm5 12 4 4L19 6',
+ mail: 'M3 5h18v14H3zM3 5l9 7 9-7',
+ phone: 'M5 3h4l2 5-3 2c2 3 3 4 6 6l2-3 5 2v4c0 2-3 2-5 1C9 17 5 13 3 6c-1-2 0-3 2-3',
+ briefcase: 'M3 7h18v14H3zM8 7V3h8v4M3 12l9 3 9-3M12 12v5',
+ heart: 'M12 21 3 12C-3 4 8-1 12 6c4-7 15-2 9 6l-9 9',
+ cursor: 'm4 3 6 18 3-8 8-3L4 3',
+ menu: 'M4 6h16M4 12h16M4 18h16',
+ chevron: 'm6 9 6 6 6-6',
+ external: 'M14 3h7v7M21 3 10 14M10 3H3v18h18v-7'
+};
+---
+<svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={paths[name] || paths.arrow}/></svg>
