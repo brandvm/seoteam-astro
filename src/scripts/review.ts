@@ -1,4 +1,6 @@
 import reviewStyles from '../styles/review.css?inline';
+import legacyAnchors from '../data/review-legacy-anchors.json';
+import {assignReviewAnchors} from './review-anchors';
 import {dragBounds,isAreaDrag,contains,normalizeSelection,projectSelection,edgeScrollSpeed,attachedCard,type Point,type Bounds} from './review-geometry';
 const reviewStyle=document.createElement('style');reviewStyle.textContent=reviewStyles;document.head.append(reviewStyle);
 
@@ -23,8 +25,12 @@ const locations=[['page','Entire page'],['header','Navigation'],['hero','Hero'],
 for(const [key] of locations){
  const scope=key==='page'?document.body:key==='header'?document.querySelector<HTMLElement>('.site-header'):key==='footer'?document.querySelector<HTMLElement>('.site-footer'):document.getElementById(key);
  if(!scope)continue;anchors.set(key,scope);if(key==='page')continue;scope.dataset.reviewAnchor=key;
- const counters:Record<string,number>={};
- scope.querySelectorAll<HTMLElement>('h1,h2,h3,h4,p,img,a,article').forEach(node=>{const tag=node.tagName.toLowerCase();const n=counters[tag]||0;counters[tag]=n+1;const anchor=`${key}:${tag}:${n}`;node.dataset.reviewAnchor=anchor;anchors.set(anchor,node);});
+ const nodes=Array.from(scope.querySelectorAll<HTMLElement>('h1,h2,h3,h4,p,img,a,article'));
+ const keys=assignReviewAnchors(key,nodes.map(node=>{
+  const tag=node.tagName.toLowerCase(),href=node.getAttribute('href')||'';
+  return {tag,text:node.textContent||'',reference:tag==='img'?(node.getAttribute('src')||'').split('/').pop():href===import.meta.env.BASE_URL?'/':href,explicit:node.dataset.reviewAnchor};
+ }),legacyAnchors);
+ nodes.forEach((node,i)=>{node.dataset.reviewAnchor=keys[i];anchors.set(keys[i],node);});
 }
 let list:Summary[]=[],counts={total:0,open:0,resolved:0},filter='open';
 let selected:number|null=null,detail:Detail|null=null,replyPages=1,panelOpen=true,picking=false,busy=false;
@@ -80,7 +86,14 @@ function setPanel(open:boolean){panelOpen=open;panel.hidden=!open;launcher.setAt
 function prepareCard(thread:boolean){moreMenu.hidden=true;moreButton.setAttribute('aria-expanded','false');copyButton.hidden=!thread;resolveButton.hidden=!thread;identity.hidden=Boolean(nameInput.value.trim());updateAuthor();newForm.hidden=thread;replyForm.hidden=!thread;}
 function threadURL(threadId:number|null){const url=new URL(location.href);url.searchParams.set('mode','review');url.searchParams.delete('view');if(threadId)url.searchParams.set('thread',String(threadId));else url.searchParams.delete('thread');return url;}
 function setURL(threadId:number|null){if(reviewActive)history.replaceState(null,'',threadURL(threadId));}
-function dismissPanel(){cancelGesture();selected=null;detail=null;detailSequence++;draftAnchor=null;threadView.hidden=true;composeView.hidden=true;newForm.hidden=true;replyForm.hidden=true;setURL(null);setPanel(false);renderPins();}
+function dismissPanel(){
+ const restoreFocus=panel.contains(document.activeElement),returnPin=selected?pinElements.get(selected)?.button:null;
+ cancelGesture();selected=null;detail=null;detailSequence++;draftAnchor=null;threadView.hidden=true;composeView.hidden=true;newForm.hidden=true;replyForm.hidden=true;setURL(null);setPanel(false);renderPins();
+ if(restoreFocus){
+  const target=reviewActive&&returnPin?.isConnected&&!returnPin.hidden?returnPin:document.querySelector<HTMLButtonElement>(`button[data-site-mode="${reviewActive?'review':'browse'}"]`);
+  target?.focus({preventScroll:true});
+ }
+}
 function compose(anchor:Anchor){cancelGesture();draftAnchor=anchor;selected=null;detail=null;detailSequence++;threadView.hidden=true;composeView.hidden=false;cardTitle.textContent='New comment';pinLabel.textContent=(anchor.selectionType==='area'?'Selected area · ':'')+anchor.anchorLabel;newInput.value=drafts.get('new')||'';prepareCard(false);notify();setPanel(true);setURL(null);renderPins();newInput.focus({preventScroll:true});}
 function startPicking(){cancelGesture();selected=null;detail=null;detailSequence++;draftAnchor=null;setURL(null);picking=true;setPanel(false);canvas.hidden=false;pickingBanner.hidden=false;document.documentElement.classList.add('rv-picking');renderPins();notify();}
 function stopPicking(){cancelGesture();picking=false;canvas.hidden=true;pickingBanner.hidden=true;document.documentElement.classList.remove('rv-picking');}

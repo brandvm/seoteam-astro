@@ -6,7 +6,7 @@
     "source_page": "https://www.seoteamtoronto.ca/about-us",
     "source_image": "https://cdn.prod.website-files.com/68fbc9e87fcc46c22da4d470/69b039700934cd09c557503b_Row%201.webp",
     "description": "Two people facing a whiteboard covered with roadmap notes. This is the top panel of a two-panel vertical composition; the lower panel is an audience-growth illustration.",
-    "usage_notes": "Display only the top photo panel with CSS overflow cropping; photo region approx x0,y0,820\u00d7640. Do not describe the people as SEO Team Toronto employees; identity and whether stock are unverified."
+    "usage_notes": "Retained as an unused source asset after the homepage review; no longer displayed. Identity of the pictured people is unverified."
   },
   {
     "local_files": [
@@ -35,7 +35,7 @@
     "source_page": "https://www.seoteamtoronto.ca/",
     "source_image": "https://cdn.prod.website-files.com/68fbc9e87fcc46c22da4d470/691235d34a57d3ec44c347b2_TOP%20SEO%20Canada.png",
     "description": "Clutch shield: Top Technical SEO, Canada, 2025.",
-    "usage_notes": "Source badge is only 113\u00d7150; keep close to native size. Retain 2025; do not imply this is a 2026 award."
+    "usage_notes": "Source badge is only 113×150; keep close to native size. Retain 2025; do not imply this is a 2026 award."
   },
   {
     "local_files": [
@@ -98,7 +98,7 @@
     "source_page": "https://www.seoteamtoronto.ca/",
     "source_image": "https://cdn.prod.website-files.com/68fbe6e838f100130ce871c3/691240816ab78e39259970ec_67c5d788fe42ad3c82af0d71_66c778a931a885226c7d3db0_Alberta%252520Municipalities.png",
     "description": "White Alberta Municipalities logo.",
-    "usage_notes": "White artwork."
+    "usage_notes": "White artwork; optimized locally to 480×200 PNG for the client strip."
   },
   {
     "local_files": [

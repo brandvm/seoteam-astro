@@ -45,7 +45,7 @@ BASE_PATH=/seoteam-astro/ npm run preview
 
 No React runtime, carousel library, animation library, remote image requests, or remote font requests. The current logo SVG was extracted from the original page and its CSS colour variables resolved to their original values. The existing fonts were downloaded and subset to Latin characters in WOFF2 format.
 
-The visual direction follows the supplied references: a pale hero with stacked result cards, client marks, a large workplace image beside the agency introduction, a featured client project, and a research image. All differentiator content is displayed openly. A native `details` element implements the mobile menu. The testimonial carousel has manual previous/next buttons and direct slide selection. All testimonials remain readable when JavaScript is disabled. Contact buttons use the existing contact page, email address, and telephone number.
+The visual direction combines the supplied performance-focused references with the existing brand guide: bold Epilogue display headings, Rubik body copy, the original palette and logo, restrained ribbon actions, and chamfered proof panels. A single hero panel attributes each outcome to its client and channel. On mobile, the first outcome appears directly below the headline using the same DOM elements. The agency introduction pairs experience with a sourced Core Web Vitals comparison; a featured client project and a research image provide visual context. All differentiator content is displayed openly. A native `details` element implements the mobile menu. The testimonial carousel has manual previous/next buttons and direct slide selection. All testimonials remain readable when JavaScript is disabled. Contact buttons use the existing contact page, email address, and telephone number.
 
 ## Why a fresh Astro project
 
@@ -53,7 +53,7 @@ The supplied [brandvm/wf-template](https://github.com/brandvm/wf-template) bundl
 
 ## Content provenance
 
-The RTF supplies the nine-section hierarchy and all section body copy. Labels such as “H2,” “Module,” and “CTA” were used as content structure, not treated as additional user instructions. The screenshots and reference sites informed the restrained layout and emphasis on evidence; their business claims, logos, and imagery were not reused.
+The RTF supplies the nine-section hierarchy and all section body copy. Labels such as “H2,” “Module,” and “CTA” were used as content structure, not treated as additional user instructions. The screenshots and reference sites informed the restrained layout and emphasis on evidence; their business claims, logos, and imagery were not reused. The supplied “SEO TEAM TORONTO.pdf” was used as a reference for the existing visual identity. Its sample score and growth figures are design examples and are not used as client results.
 
 Case-study metrics and quotes come from SEO Team Toronto’s published pages, retrieved September 10, 2026:
 
@@ -64,9 +64,9 @@ Case-study metrics and quotes come from SEO Team Toronto’s published pages, re
 - [About SEO Team Toronto](https://www.seoteamtoronto.ca/about-us): 10+ years of experience.
 - [Current blog](https://www.seoteamtoronto.ca/blog): the three linked article titles and descriptions.
 
-The hero highlights three named engagements. Case-card bar comparisons normalize each baseline to 100 and compute the outcome from the published percentage increase; the visible caption identifies this normalization. These are before/after comparisons, not time series or absolute traffic counts. Results belong to specific engagements; no average or guarantee is implied.
+The hero highlights qualified organic leads for HSP Law, consultations from organic and paid media for Toronique, and donation form submissions for Dress for Success Toronto. The performance chart uses Flipp’s reported mobile Core Web Vitals pass rates of 62% and 94% on a zero-to-100% scale. The case cards present published outcomes directly, without synthetic indexed bars. Results belong to specific engagements; no average, measurement period, or guarantee is implied. The source pages establish provenance, not an independent audit.
 
-Downloaded image assets are documented in `docs/image-sources.json`. The workplace image uses only the top photograph panel of the original composition through CSS clipping; its people are not identified as agency staff. The Toronique project graphic and SEO timeline editorial image have responsive WebP variants. Large below-the-fold images and badges use native lazy loading, and every image has explicit dimensions. Client marks come from the existing homepage; its white artwork is displayed monochrome on the light logo strip. The original 2025 Clutch badge date is retained. No generated photography or remotely hosted image dependencies were introduced.
+Downloaded image assets are documented in `docs/image-sources.json`. The workplace photograph is retained as an unused source asset; it is no longer displayed on the homepage. The Toronique project graphic and SEO timeline editorial image have responsive WebP variants. The project graphic uses a size hint matching its 320px display width; the Alberta Municipalities logo is reduced to 480×200. Large below-the-fold images and badges use native lazy loading, and every image has explicit dimensions. Client marks come from the existing homepage; its white artwork is displayed monochrome on the light logo strip. The original 2025 Clutch badge date is retained. No generated photography or remotely hosted image dependencies were introduced.
 
 ## Review status and production integration
 
@@ -74,7 +74,7 @@ The homepage is a review implementation published on GitHub Pages. Supporting se
 
 The review page intentionally includes `noindex,nofollow`. When the redesign is approved for the real domain, remove that review directive, configure the canonical production origin and sitemap, and map internal links to any migrated routes. Keep the published page URLs or supply redirects if those pages are migrated.
 
-Validation performed: root and GitHub Pages production builds, all 37 supplied body/intro/heading text blocks, unique IDs and valid section anchors, local asset and responsive-source existence, explicit image dimensions and alt attributes, client JavaScript syntax, and arithmetic checks on the bar comparisons. All 18 external destination URLs returned HTTP 200 during the initial implementation. Browser interaction, visual QA, and Lighthouse measurement have not been run; the responsive rules are implemented but no measured performance score is claimed.
+Validation performed: root and GitHub Pages production builds, all 38 supplied body/intro/heading text blocks, unique IDs and valid section anchors, local asset and responsive-source existence, explicit image dimensions and alt attributes, client JavaScript syntax, and the chart values against the published Flipp case study. All 18 external destination URLs returned HTTP 200 during the initial implementation. The September 2026 design review includes desktop and mobile browser inspection, local image loading, and checks at 320, 390, 768, 1024, and 1440px. No Lighthouse score or field performance result is claimed.
 
 Reference documentation: [Astro components](https://docs.astro.build/en/basics/astro-components/) and [client scripts](https://docs.astro.build/en/guides/client-side-scripts/).
 
@@ -95,6 +95,7 @@ Comments are public and anonymous; display names are self-selected, not verified
 - `src/styles/site-mode.css`: the shared Browse / Review toolbar.
 - `src/scripts/review.ts` and `src/styles/review.css`: pin-attached comment cards, area outlines, replies, reactions, resolve controls, and comment navigation.
 - `src/scripts/review-geometry.ts`: proportional point/rectangle coordinates and edge scrolling.
+- `src/scripts/review-anchors.ts` and `src/data/review-legacy-anchors.json`: stable content identities and a frozen mapping of the 156 original element anchors from frontend commit `a73ed0d`.
 - `server/review-api.mjs`: public JSON endpoints, validation, bounded payloads, rate limiting, and CORS allowlist.
 - `db/schema.ts` and `drizzle/`: schema and generated, append-only migrations.
 - `tests/`: mode precedence and migration, geometry, independent visitor workflows, database migration compatibility, pagination, validation, and spam limits.
@@ -103,4 +104,4 @@ The frontend and backend are separate deployments. GitHub Actions updates the st
 
 For a local comment preview, run `npm run dev:comments`, then `PUBLIC_REVIEW_API=http://127.0.0.1:8787/api/review npm run dev` in a second terminal. Visit `http://127.0.0.1:4321/?mode=review`. The local server uses an ignored SQLite file; set `REVIEW_LOCAL_DB` to choose another file. Production builds use the public API default; `PUBLIC_REVIEW_API` is an optional public endpoint override, never a secret.
 
-Run `npm test` and `npm run check:comments` before deployment. Publishing API changes applies D1 migrations before the Worker is uploaded. Do not edit an applied migration. Keep stable section IDs so existing pins can fall back to their section if an individual element changes.
+Run `npm test` and `npm run check:comments` before deployment. Publishing API changes applies D1 migrations before the Worker is uploaded. Do not edit an applied migration. Keep stable section IDs so existing pins can fall back to their section if an individual element is removed. Never regenerate the frozen legacy anchor map from a new layout: old ordinal keys are reserved for their original elements. Retain an existing `data-review-anchor` when intentionally editing that element. New elements receive content-based keys, and identical legacy copies require explicit IDs so insertion or reordering cannot silently move an old pin. The anchor map loads only with Comment mode.

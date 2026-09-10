@@ -1,9 +1,9 @@
 export const origin = 'https://www.seoteamtoronto.ca';
 export const cases = [
- {industry:'Retail technology',name:'Enterprise Retail-Tech Platform',client:'Flipp',value:'+128%',metric:'B2B search impressions',secondary:'94% Core Web Vitals pass rate',focus:'Technical SEO · B2B visibility',href:'/case-studies/enterprise-retail-tech-technical-seo',before:100,after:228},
- {industry:'Legal services',name:'Toronto Personal Injury Law Firm',client:'HSP Law',value:'+117%',metric:'Qualified leads from organic search',secondary:'+168% non-brand organic traffic',focus:'Local SEO · Content strategy',href:'/case-studies/personal-injury-law-local-seo-toronto',before:100,after:217},
- {industry:'Construction',name:'Toronto Custom Home Builder',client:'Toronique',value:'+210%',metric:'Qualified consultation requests',secondary:'3.1× Google Business Profile calls & directions',focus:'Local SEO · Google Ads',href:'/case-studies/custom-home-builder-seo-ppc-toronto',before:100,after:310},
- {industry:'Nonprofit',name:'Toronto Career Empowerment Nonprofit',client:'Dress for Success Toronto',value:'+120%',metric:'Donation form submissions',secondary:'+150% organic traffic',focus:'Site architecture · On-page SEO',href:'/case-studies/nonprofit-seo-toronto',before:100,after:220},
+ {industry:'Retail technology',name:'Enterprise Retail-Tech Platform',client:'Flipp',value:'+128%',metric:'B2B search impressions',secondary:'94% Core Web Vitals pass rate',focus:'Technical SEO · B2B visibility',href:'/case-studies/enterprise-retail-tech-technical-seo'},
+ {industry:'Legal services',name:'Toronto Personal Injury Law Firm',client:'HSP Law',value:'+117%',metric:'Qualified leads from organic search',secondary:'+168% non-brand organic traffic',focus:'Local SEO · Content strategy',href:'/case-studies/personal-injury-law-local-seo-toronto'},
+ {industry:'Construction',name:'Toronto Custom Home Builder',client:'Toronique',value:'+210%',metric:'Qualified consultation requests',secondary:'3.1× Google Business Profile calls & directions',focus:'Local SEO · Google Ads',href:'/case-studies/custom-home-builder-seo-ppc-toronto'},
+ {industry:'Nonprofit',name:'Toronto Career Empowerment Nonprofit',client:'Dress for Success Toronto',value:'+120%',metric:'Donation form submissions',secondary:'+150% organic traffic',focus:'Site architecture · On-page SEO',href:'/case-studies/nonprofit-seo-toronto'},
 ];
 export const testimonials = [
  {quote:"They cleared out technical debt we'd been ignoring and rebuilt how our B2B pages connect. The lift in qualified impressions turned into real pipeline conversations.",name:'Daniel Reyes',role:'VP Partner Marketing, Flipp',href:cases[0].href},
