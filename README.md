@@ -22,7 +22,7 @@ Deploy the generated `dist/` directory to any static host. The private Sites rev
 
 `.github/workflows/deploy.yml` builds and publishes this site on every push to `main`, or through a manual Actions run. In repository **Settings → Pages**, the source must be **GitHub Actions**.
 
-The workflow reads the Pages origin and base path from GitHub, then passes them to Astro as `SITE_URL` and `BASE_PATH`. For this repository, the default URL is `https://brandvm.github.io/seoteam-astro/`. Logo, favicon, home links, CSS, and fonts all resolve under that path. Root-domain and local builds keep `/` as their default.
+The workflow reads the Pages origin and base path from GitHub, then passes them to Astro as `SITE_URL` and `BASE_PATH`. For this repository, the default URL is `https://brandvm.github.io/seoteam-astro/`. Logo, favicon, client marks, photographs, responsive image variants, home links, CSS, and fonts all resolve under that path. Root-domain and local builds keep `/` as their default.
 
 To reproduce the Pages build locally:
 
@@ -33,18 +33,19 @@ BASE_PATH=/seoteam-astro/ npm run preview
 
 ## Editing
 
-- `src/pages/index.astro`: page structure, navigation, chart, and small interaction script.
+- `src/pages/index.astro`: page structure, navigation, comparisons, and small interaction script.
 - `src/styles/global.css`: branding, layouts, responsive rules, and reduced-motion handling.
 - `src/data/copy.json`: supplied headings and copy, rendered without rewriting the body paragraphs.
 - `src/data/results.ts`: case-study metrics, testimonial text, industries, and article destinations.
 - `src/components/Icon.astro`: small inline line icons.
-- `public/assets/`: original logo and favicon, plus font licenses.
+- `public/assets/`: original logo, favicon, downloaded images, client marks, recognition badges, and font licenses.
+- `docs/image-sources.json`: source URLs and usage notes for all downloaded image assets.
 - `src/assets/fonts/`: locally hosted WOFF2 fonts, bundled by Astro with base-aware URLs.
 - `src/homepage-copy.txt`: plain-text extraction of the supplied final copy for comparison.
 
 No React runtime, carousel library, animation library, remote image requests, or remote font requests. The current logo SVG was extracted from the original page and its CSS colour variables resolved to their original values. The existing fonts were downloaded and subset to Latin characters in WOFF2 format.
 
-Native `details` elements implement the differentiator panels and mobile menu. The testimonial carousel has manual previous/next buttons and direct slide selection. All testimonials remain readable when JavaScript is disabled. Contact buttons use the existing contact page, email address, and telephone number.
+The visual direction follows the supplied references: a pale hero with stacked result cards, client marks, a large workplace image beside the agency introduction, a featured client project, and a research image. All differentiator content is displayed openly. A native `details` element implements the mobile menu. The testimonial carousel has manual previous/next buttons and direct slide selection. All testimonials remain readable when JavaScript is disabled. Contact buttons use the existing contact page, email address, and telephone number.
 
 ## Why a fresh Astro project
 
@@ -63,14 +64,16 @@ Case-study metrics and quotes come from SEO Team Toronto’s published pages, re
 - [About SEO Team Toronto](https://www.seoteamtoronto.ca/about-us): 10+ years of experience.
 - [Current blog](https://www.seoteamtoronto.ca/blog): the three linked article titles and descriptions.
 
-The hero chart normalizes impressions to a baseline of 100 and an outcome of 228. It does not represent a time series or absolute traffic counts. Case-card mini charts compare the same normalized baseline with each published percentage increase. Results belong to specific engagements; no average or guarantee is implied.
+The hero highlights three named engagements. Case-card bar comparisons normalize each baseline to 100 and compute the outcome from the published percentage increase; the visible caption identifies this normalization. These are before/after comparisons, not time series or absolute traffic counts. Results belong to specific engagements; no average or guarantee is implied.
+
+Downloaded image assets are documented in `docs/image-sources.json`. The workplace image uses only the top photograph panel of the original composition through CSS clipping; its people are not identified as agency staff. The Toronique project graphic and SEO timeline editorial image have responsive WebP variants. Large below-the-fold images and badges use native lazy loading, and every image has explicit dimensions. Client marks come from the existing homepage; its white artwork is displayed monochrome on the light logo strip. The original 2025 Clutch badge date is retained. No generated photography or remotely hosted image dependencies were introduced.
 
 ## Review status and production integration
 
-The homepage is complete as a private review implementation. Supporting service, case-study, article, and contact links currently open the corresponding pages on the existing site. This project does not migrate those pages or connect a new lead-capture backend. “Explore Industries” opens the current case-study collection because the supplied site has no verified standalone industry index.
+The homepage is a review implementation published on GitHub Pages. Supporting service, case-study, article, and contact links currently open the corresponding pages on the existing site. This project does not migrate those pages or connect a new lead-capture backend. “Explore Industries” opens the current case-study collection because the supplied site has no verified standalone industry index.
 
 The review page intentionally includes `noindex,nofollow`. When the redesign is approved for the real domain, remove that review directive, configure the canonical production origin and sitemap, and map internal links to any migrated routes. Keep the published page URLs or supply redirects if those pages are migrated.
 
-Validation performed: production build, full supplied-copy comparison, unique IDs and valid section anchors, local asset existence, client JavaScript syntax, all 18 external destination URLs returning HTTP 200, and arithmetic checks on the chart values. Browser interaction, visual QA, and Lighthouse measurement have not been run; the responsive rules are implemented but no measured performance score is claimed.
+Validation performed: root and GitHub Pages production builds, all 37 supplied body/intro/heading text blocks, unique IDs and valid section anchors, local asset and responsive-source existence, explicit image dimensions and alt attributes, client JavaScript syntax, and arithmetic checks on the bar comparisons. All 18 external destination URLs returned HTTP 200 during the initial implementation. Browser interaction, visual QA, and Lighthouse measurement have not been run; the responsive rules are implemented but no measured performance score is claimed.
 
 Reference documentation: [Astro components](https://docs.astro.build/en/basics/astro-components/) and [client scripts](https://docs.astro.build/en/guides/client-side-scripts/).

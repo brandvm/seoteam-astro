@@ -9,6 +9,11 @@ const text = (section: number, type: string) => copy[section].find(row => row.ty
 const origin = 'https://www.seoteamtoronto.ca';
 const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
 const asset = (name: string) => `${base}assets/${name}`;
+const clientLogos = [
+  ['mcgill','McGill'], ['tdsb','Toronto District School Board'],
+  ['forest-hill','Forest Hill Real Estate'], ['dress-for-success','Dress for Success Toronto'],
+  ['alberta-municipalities','Alberta Municipalities'], ['retina-labs','Retina Labs'],
+];
 const services = copy[1].reduce<Array<{title:string;body:string;link:string}>>((all,row) => {
   if(row.type === 'H3') all.push({title:row.text,body:'',link:''});
   else if(all.length && row.type === 'Body') all[all.length-1].body = row.text;
@@ -57,31 +62,24 @@ const differences = copy[2].reduce<Array<{title:string;body:string;tools:Array<{
     <div class="container hero-grid">
       <div class="hero-copy">
         <div class="eyebrow"><span class="eyebrow-line"></span> SEO. AI Search. Business Growth.</div>
-        <h1 id="hero-title">The Pioneer<br/>Toronto <span>SEO<br class="desktop-break"/> Agency.</span></h1>
+        <h1 id="hero-title">The Pioneer<br/>Toronto<br/><span>SEO Agency.</span></h1>
         <p>{text(0,'Body')}</p>
         <a href="#contact" class="button">{text(0,'Primary CTA')} <Icon size={19}/></a>
         <div class="hero-note"><Icon name="check" size={16}/> Experienced consultants. A clear way forward.</div>
       </div>
-      <div class="hero-evidence">
-        <div class="evidence-heading"><span class="eyebrow">The work. The impact.</span><span class="case-index">Client result</span></div>
-        <div class="feature-metric"><span>+128<span class="percent">%</span></span><Icon name="chart" size={38}/></div>
-        <h2>B2B search impressions</h2>
-        <p class="evidence-description">Making an enterprise retail-tech platform<br class="desktop-break"/> visible to the right buyers.</p>
-        <div class="performance-chart" role="img" aria-label="B2B search impressions increased 128 percent. Indexed baseline: 100. Result: 228.">
-          <div class="chart-scale"><span>Search impressions</span><span>Indexed to 100</span></div>
-          <div class="chart-row"><span>Before</span><div class="bar-track"><div class="bar bar-before" style="--bar-width:40%">100</div></div></div>
-          <div class="chart-row"><span>After</span><div class="bar-track"><div class="bar bar-after" style="--bar-width:91.2%">228 <span>↗</span></div></div></div>
-          <div class="chart-axis"><span>0</span><span>100</span><span>200</span><span>250</span></div>
-        </div>
-        <div class="evidence-bottom"><div><strong>62% <span>→</span> 94%</strong><span>Core Web Vitals pass rate</span></div><a href={origin+'/case-studies/enterprise-retail-tech-technical-seo'} class="round-link" aria-label="Read the enterprise retail-tech case study"><Icon/></a></div>
-        <a class="evidence-source" href={origin+'/case-studies/enterprise-retail-tech-technical-seo'}>From our enterprise retail-tech case study</a>
+      <div class="hero-results" aria-label="Results from individual client engagements">
+        <div class="hero-results-label"><span class="eyebrow">Our clients. Their growth.</span><span class="small-rule"></span></div>
+        {cases.slice(0,3).map((study,i)=><a class="hero-result" href={origin+study.href}>
+          <span class="result-icon"><Icon name={['chart','target','building'][i]} size={32}/></span>
+          <div><strong>{study.value}</strong><h2>{study.metric}</h2><p>{study.client} <span>· {i===2?'Organic & paid':study.industry}</span></p></div>
+          <Icon size={22}/>
+        </a>)}
+        <p class="hero-results-note">Real engagements. Measurable outcomes. <a href="#case-studies">Explore the work <Icon size={14}/></a></p>
       </div>
     </div>
-    <div class="container proof-strip">
-      <div class="proof-intro"><span class="eyebrow">Strategy in action</span><p>Different challenges.<br/>Measurable progress.</p></div>
-      <a href={origin+'/case-studies/personal-injury-law-local-seo-toronto'}><span class="proof-number">+117<span>%</span></span><span>Qualified organic leads <Icon size={15}/></span><small>Legal services</small></a>
-      <a href={origin+'/case-studies/custom-home-builder-seo-ppc-toronto'}><span class="proof-number">+210<span>%</span></span><span>Qualified consultations <Icon size={15}/></span><small>Custom home building · organic & paid</small></a>
-      <a href={origin+'/case-studies/nonprofit-seo-toronto'}><span class="proof-number">+120<span>%</span></span><span>Donation form submissions <Icon size={15}/></span><small>Nonprofit</small></a>
+    <div class="container client-strip">
+      <p>Experience behind brands that make a difference.</p>
+      <div class="client-logos">{clientLogos.map(([file,name])=><img src={asset(`clients/logo-${file}.png`)} alt={name} width="480" height="200" decoding="async"/>)}</div>
     </div>
   </section>
   <section id="services" class="section services-section" aria-labelledby="services-title">
@@ -100,26 +98,28 @@ const differences = copy[2].reduce<Array<{title:string;body:string;tools:Array<{
     </div>
   </section>
   <section id="why-seo-team" class="section why-section" aria-labelledby="why-title">
-    <div class="container why-grid">
-      <div class="why-intro"><div class="eyebrow"><span class="eyebrow-line"></span>{text(2,'Eyebrow')}</div><h2 id="why-title">{text(2,'H2')}</h2><p>{text(2,'Intro')}</p><div class="expertise-note"><span class="expertise-number">10<span>+</span></span><span>Years of experience<br/>in organic search</span></div><a class="text-link" href={origin+'/about-us'}>Meet SEO Team <Icon size={19}/></a></div>
-      <div class="differences">
-        {differences.map((block,i) => <details class="difference" name="difference" open={i===0}>
-          <summary><span class="item-number">0{i+1}</span><h3>{block.title}</h3><span class="expand-icon"><Icon name="plus" size={20}/></span></summary>
-          <div class="difference-body"><p>{block.body}</p>
-          {block.tools.length>0 && <div class="technology-grid">{block.tools.map((tool,j)=><div class="technology"><Icon name={j===0?'target':'globe'} size={25}/><h4>{tool.title}</h4><p>{tool.body}</p></div>)}</div>}
-          </div>
-        </details>)}
+    <div class="container why-feature">
+      <div class="workplace-visual">
+        <div class="workplace-photo"><img src={asset('images/workplace-roadmap.webp')} width="820" height="1396" loading="lazy" decoding="async" alt="Two people reviewing a roadmap on a whiteboard."/></div>
+        <div class="experience-card"><strong>10<span>+</span></strong><p>Years of experience<br/>in organic search</p><Icon name="chart" size={32}/></div>
       </div>
+      <div class="why-intro"><div class="eyebrow"><span class="eyebrow-line"></span>{text(2,'Eyebrow')}</div><h2 id="why-title">{text(2,'H2')}</h2><p>{text(2,'Intro')}</p><div class="why-principles"><span><Icon name="check" size={18}/> Original research</span><span><Icon name="check" size={18}/> Experienced judgement</span><span><Icon name="check" size={18}/> A personal consulting relationship</span></div><a class="text-link" href={origin+'/about-us'}>Meet SEO Team <Icon size={19}/></a></div>
     </div>
+    <div class="why-details"><div class="container differences">
+      {differences.map((block,i)=><article class="difference">
+        <div class="difference-heading"><span class="item-number">0{i+1}</span><h3>{block.title}</h3></div>
+        <p>{block.body}</p>
+        {block.tools.length>0 && <div class="technology-grid">{block.tools.map((tool,j)=><div class="technology"><div class="technology-title"><Icon name={j===0?'target':'globe'} size={25}/><h4>{tool.title}</h4></div><p>{tool.body}</p></div>)}</div>}
+        {i===3 && <div class="recognition"><span class="eyebrow">Recognition & partnerships</span><div class="recognition-badges"><img src={asset('badges/clutch-canada-2025.png')} width="113" height="150" loading="lazy" alt="Clutch Top Technical SEO Canada 2025"/><img src={asset('badges/semrush.png')} width="114" height="150" loading="lazy" alt="Semrush Certified Agency Partner"/><img src={asset('badges/upcity.png')} width="124" height="150" loading="lazy" alt="Top SEO Agency featured on UpCity"/></div></div>}
+      </article>)}
+    </div></div>
   </section>
   <section id="approach" class="section approach-section" aria-labelledby="approach-title">
     <div class="container approach-grid">
       <div class="approach-copy"><div class="eyebrow"><span class="eyebrow-line"></span>{text(3,'Eyebrow')}</div><h2 id="approach-title">{text(3,'H2')}</h2><p>{text(3,'Body')}</p></div>
-      <div class="authority-diagram" aria-label="Brand authority connects SEO, GEO and AEO through your website, your expertise, and credible third-party sources.">
-        <div class="diagram-caption"><span class="eyebrow">One connected strategy</span><Icon name="layers" size={20}/></div>
-        <div class="authority-core"><span>THE FOUNDATION</span><strong>Brand authority</strong><p>Credible expertise. Consistent signals.</p></div>
-        <div class="connector-lines" aria-hidden="true"><span></span><span></span><span></span></div>
-        <div class="search-channels"><div><span>01</span><strong>SEO</strong><p>Organic<br/>search</p></div><div><span>02</span><strong>GEO</strong><p>Generative<br/>engines</p></div><div><span>03</span><strong>AEO</strong><p>Answer<br/>engines</p></div></div>
+      <div class="authority-diagram" role="img" aria-label="Brand authority connects SEO, GEO and AEO through your website, your expertise, and credible third-party sources.">
+        <div class="diagram-caption"><span class="eyebrow">One connected strategy</span></div>
+        <div class="authority-orbit"><div class="authority-core"><Icon name="layers" size={27}/><strong>Brand<br/>authority</strong></div><div class="channel channel-seo"><Icon name="search" size={27}/><strong>SEO</strong><span>Organic search</span></div><div class="channel channel-geo"><Icon name="globe" size={27}/><strong>GEO</strong><span>Generative engines</span></div><div class="channel channel-aeo"><Icon name="bolt" size={27}/><strong>AEO</strong><span>Answer engines</span></div></div>
         <div class="diagram-foundation"><span>Your website</span><span>Your expertise</span><span>Trusted sources</span></div>
       </div>
     </div>
@@ -127,14 +127,18 @@ const differences = copy[2].reduce<Array<{title:string;body:string;tools:Array<{
   <section id="case-studies" class="section cases-section" aria-labelledby="cases-title">
     <div class="container">
       <div class="section-heading case-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span>{text(4,'Eyebrow')}</div><h2 id="cases-title">{text(4,'H2')}</h2><p>{text(4,'Body')}</p></div><a class="text-link" href={origin+'/case-studies'}>{text(4,'Link').replace(' →','')}<Icon size={20}/></a></div>
-      <div class="case-grid">{cases.map((study,i)=><article class="case-card">
-        <div class="case-top"><span class="eyebrow">{study.industry}</span><span class="item-number">0{i+1}</span></div>
+      <article class="featured-case">
+        <div class="featured-case-visual"><img src={asset('images/toronique-1040.webp')} srcset={`${asset('images/toronique-520.webp')} 520w, ${asset('images/toronique-1040.webp')} 1040w`} sizes="(max-width:760px) 90vw, 43vw" width="1040" height="1256" loading="lazy" decoding="async" alt="Toronique website mockup with a card reporting 3.1x Google Business Profile calls and direction requests."/></div>
+        <div class="featured-case-copy"><span class="eyebrow">Featured engagement · Construction</span><h3>{cases[2].name}</h3><p class="featured-case-focus">{cases[2].focus}</p><div class="featured-case-stats"><div><strong>+210<span>%</span></strong><p>Qualified consultation requests</p></div><div><strong>3.1<span>×</span></strong><p>Google Business Profile calls & directions</p></div></div><p class="featured-case-context">Organic search and paid media, working together to reach homeowners planning their next build.</p><a href={origin+cases[2].href} class="text-link">Explore the Toronique Case Study <Icon size={21}/></a></div>
+      </article>
+      <div class="case-grid">{cases.filter((study)=>study.client!=='Toronique').map((study,i)=><article class="case-card">
+        <div class="case-top"><span class="eyebrow">{study.industry}</span><Icon name={['layers','briefcase','heart'][i]} size={24}/></div>
         <div class="case-stat">{study.value}</div><p class="case-metric">{study.metric}</p>
-        <div class="mini-comparison" aria-hidden="true"><div class="mini-before" style={`width:${100/study.after*100}%`}></div><div class="mini-after"></div></div>
+        <div class="case-comparison" role="img" aria-label={`${study.metric}: indexed baseline 100, result ${study.after}.`}><div><span>Before</span><div class="comparison-track"><i class="mini-before" style={`width:${100/study.after*100}%`}></i></div><small>100</small></div><div><span>After</span><div class="comparison-track"><i class="mini-after"></i></div><small>{study.after}</small></div></div>
         <p class="case-secondary">{study.secondary}</p>
-        <div class="case-detail"><h3>{study.name}</h3><p>{study.focus}</p><a href={origin+study.href} class="text-link">Read Case Study <Icon size={18}/></a></div>
+        <div class="case-detail"><span class="case-client">{study.client}</span><h3>{study.name}</h3><p>{study.focus}</p><a href={origin+study.href} class="text-link">Read Case Study <Icon size={18}/></a></div>
       </article>)}</div>
-      <p class="results-note">Results from individual client engagements. Each case study explains the work and measurement behind the numbers.</p>
+      <p class="results-note">Results from individual client engagements. Bar comparisons are indexed to a baseline of 100. Each case study explains the work and measurement behind the numbers.</p>
     </div>
   </section>
   <section id="industries" class="section industries-section" aria-labelledby="industries-title">
@@ -146,7 +150,10 @@ const differences = copy[2].reduce<Array<{title:string;body:string;tools:Array<{
   <section id="research" class="section research-section" aria-labelledby="research-title">
     <div class="container">
       <div class="section-heading case-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span>{text(6,'Eyebrow')}</div><h2 id="research-title">{text(6,'H2')}</h2><p>{text(6,'Body')}</p></div><a href={origin+'/blog'} class="text-link">{text(6,'Link').replace(' →','')}<Icon size={20}/></a></div>
-      <div class="article-list">{articles.map((article,i)=><article class="article-row"><span class="article-number">0{i+1}</span><div class="article-heading"><span class="eyebrow">{article.category}</span><h3><a href={origin+article.href}>{article.title}</a></h3></div><p>{article.description}</p><a href={origin+article.href} class="round-link" aria-label={`Read ${article.title}`}><Icon size={20}/></a></article>)}</div>
+      <div class="research-layout">
+        <article class="research-feature"><a class="research-image" href={origin+articles[2].href} tabindex="-1" aria-hidden="true"><img src={asset('images/seo-timeline-1240.webp')} srcset={`${asset('images/seo-timeline-620.webp')} 620w, ${asset('images/seo-timeline-1240.webp')} 1240w`} sizes="(max-width:760px) 90vw, 46vw" width="1240" height="826" loading="lazy" decoding="async" alt=""/></a><div class="article-heading"><span class="eyebrow">{articles[2].category}</span><h3><a href={origin+articles[2].href}>{articles[2].title}</a></h3></div><p>{articles[2].description}</p><a href={origin+articles[2].href} class="text-link">Read the Research <Icon size={20}/></a></article>
+        <div class="article-list">{articles.slice(0,2).map((article)=><article class="article-row"><div class="article-heading"><span class="eyebrow">{article.category}</span><h3><a href={origin+article.href}>{article.title}</a></h3></div><p>{article.description}</p><a href={origin+article.href} class="text-link">Read the Research <Icon size={20}/></a></article>)}</div>
+      </div>
     </div>
   </section>
   <section id="testimonials" class="section testimonials-section" aria-labelledby="testimonials-title">

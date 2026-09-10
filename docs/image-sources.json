@@ -1,0 +1,112 @@
+[
+  {
+    "local_files": [
+      "public/assets/images/workplace-roadmap.webp"
+    ],
+    "source_page": "https://www.seoteamtoronto.ca/about-us",
+    "source_image": "https://cdn.prod.website-files.com/68fbc9e87fcc46c22da4d470/69b039700934cd09c557503b_Row%201.webp",
+    "description": "Two people facing a whiteboard covered with roadmap notes. This is the top panel of a two-panel vertical composition; the lower panel is an audience-growth illustration.",
+    "usage_notes": "Display only the top photo panel with CSS overflow cropping; photo region approx x0,y0,820\u00d7640. Do not describe the people as SEO Team Toronto employees; identity and whether stock are unverified."
+  },
+  {
+    "local_files": [
+      "public/assets/images/toronique-520.webp",
+      "public/assets/images/toronique-1040.webp"
+    ],
+    "source_page": "https://www.seoteamtoronto.ca/case-studies/custom-home-builder-seo-ppc-toronto",
+    "source_image": "https://cdn.prod.website-files.com/68fbe6e838f100130ce871c3/6a2041fb38354373bfcba2d1_6a203a637892791cb2f1984c_TORONIQUE.png",
+    "description": "Toronique website mobile mockup showing a modern home, with a 3.1x Google Business Profile calls and direction requests card.",
+    "usage_notes": "Transparent composition; preserve full graphic on light neutral background. Already contains the source claim, so avoid additional conflicting metrics."
+  },
+  {
+    "local_files": [
+      "public/assets/images/seo-timeline-620.webp",
+      "public/assets/images/seo-timeline-1240.webp"
+    ],
+    "source_page": "https://www.seoteamtoronto.ca/blog/how-long-does-seo-take-by-site-type",
+    "source_image": "https://cdn.prod.website-files.com/68fbe6e838f100130ce871c3/6a8c90159d5600991f67e628_Screenshot%202026-08-24%20at%202.40.15%E2%80%AFPM.png",
+    "description": "Orange glass-like hourglass, target, bar chart, rising line graph and arrow on stone plinths. No people; conceptual graphic.",
+    "usage_notes": "Suitable editorial thumbnail; this is a conceptual image, not a screenshot of measured client data."
+  },
+  {
+    "local_files": [
+      "public/assets/badges/clutch-canada-2025.png"
+    ],
+    "source_page": "https://www.seoteamtoronto.ca/",
+    "source_image": "https://cdn.prod.website-files.com/68fbc9e87fcc46c22da4d470/691235d34a57d3ec44c347b2_TOP%20SEO%20Canada.png",
+    "description": "Clutch shield: Top Technical SEO, Canada, 2025.",
+    "usage_notes": "Source badge is only 113\u00d7150; keep close to native size. Retain 2025; do not imply this is a 2026 award."
+  },
+  {
+    "local_files": [
+      "public/assets/badges/semrush.png"
+    ],
+    "source_page": "https://www.seoteamtoronto.ca/",
+    "source_image": "https://cdn.prod.website-files.com/68fbc9e87fcc46c22da4d470/691235d3241f89afd1e4395e_SemRush.png",
+    "description": "Purple Semrush Certified Agency Partner badge.",
+    "usage_notes": "Original displayed badge; do not use an improvised text logo."
+  },
+  {
+    "local_files": [
+      "public/assets/badges/upcity.png"
+    ],
+    "source_page": "https://www.seoteamtoronto.ca/",
+    "source_image": "https://cdn.prod.website-files.com/68fbc9e87fcc46c22da4d470/691235d30bbf72219a42ed6d_UpCity.png",
+    "description": "Dark circular Top SEO Agency, Featured on UpCity badge.",
+    "usage_notes": "Original displayed badge."
+  },
+  {
+    "local_files": [
+      "public/assets/clients/logo-tdsb.png"
+    ],
+    "source_page": "https://www.seoteamtoronto.ca/",
+    "source_image": "https://cdn.prod.website-files.com/68fbe6e838f100130ce871c3/6912408627f7f1b74f556aab_69039716e3d4b7bb1d5a4a2e_TDSB.png",
+    "description": "White Toronto District School Board logo on transparency.",
+    "usage_notes": "White original artwork requires a dark background or a CSS brightness filter on a light background."
+  },
+  {
+    "local_files": [
+      "public/assets/clients/logo-mcgill.png"
+    ],
+    "source_page": "https://www.seoteamtoronto.ca/",
+    "source_image": "https://cdn.prod.website-files.com/68fbe6e838f100130ce871c3/691240844e4fb7822e11919e_6903970b264211598cc3da7b_McGill.png",
+    "description": "White McGill university wordmark with shield on transparency.",
+    "usage_notes": "White artwork; verify chosen background contrast."
+  },
+  {
+    "local_files": [
+      "public/assets/clients/logo-forest-hill.png"
+    ],
+    "source_page": "https://www.seoteamtoronto.ca/",
+    "source_image": "https://cdn.prod.website-files.com/68fbe6e838f100130ce871c3/6912408326a753a08ac0efe2_67c5d78a8263098b11a1eeba_6631621df486f7c2bce456ad_uc.png",
+    "description": "White Forest Hill Real Estate Inc. Brokerage script wordmark.",
+    "usage_notes": "White artwork."
+  },
+  {
+    "local_files": [
+      "public/assets/clients/logo-dress-for-success.png"
+    ],
+    "source_page": "https://www.seoteamtoronto.ca/",
+    "source_image": "https://cdn.prod.website-files.com/68fbe6e838f100130ce871c3/69124082ae3c8c4663c4948a_67c5d7891ae73d8d47813ce5_6631621de2451c92a69210b3_uc.png",
+    "description": "White Dress for Success Toronto logo.",
+    "usage_notes": "White artwork; corresponding case study is also on source site."
+  },
+  {
+    "local_files": [
+      "public/assets/clients/logo-alberta-municipalities.png"
+    ],
+    "source_page": "https://www.seoteamtoronto.ca/",
+    "source_image": "https://cdn.prod.website-files.com/68fbe6e838f100130ce871c3/691240816ab78e39259970ec_67c5d788fe42ad3c82af0d71_66c778a931a885226c7d3db0_Alberta%252520Municipalities.png",
+    "description": "White Alberta Municipalities logo.",
+    "usage_notes": "White artwork."
+  },
+  {
+    "local_files": [
+      "public/assets/clients/logo-retina-labs.png"
+    ],
+    "source_page": "https://www.seoteamtoronto.ca/",
+    "source_image": "https://cdn.prod.website-files.com/68fbe6e838f100130ce871c3/691240855b0778389a8fc004_67c5d78bb3b434ca3a666143_6631621b019184b97c97d1a4_uc.png",
+    "description": "White Retina Labs wordmark and globe-like mark.",
+    "usage_notes": "White artwork."
+  }
+]
